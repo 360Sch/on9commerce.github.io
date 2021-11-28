@@ -25,6 +25,7 @@ App = {
         }
      
     },
+    // TODO: V2 Create logout feature
     loadAccount: async () => {
         console.log('loadAccount')
         try {
@@ -45,7 +46,8 @@ App = {
             return;
         }
 
-        $("#mm-connect-btn").text('Logout')
+        $("#mm-connect-btn").hide() 
+        // text('Logout')
         //Reload page if user change or disconnect Metamask
         ethereum.on('accountsChanged', function(accounts){
             console.log(`New Account connected: ${ethereum.selectedAddress}`)
