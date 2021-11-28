@@ -80,15 +80,15 @@ App = {
         // Create instance of Web3
         const web3 = new Web3(window.ethereum)
         // Contract Address:
-        const escrowContractAdd = "0x8c816E2e373d1aFF591C24f4B5D1782d2294Dd3c"
-        // local "0xf99886F46B482AF9a1407eDADEee6cc9646798F6"
-        $('#escrow-smart-contract-address').text(escrowContractAdd)
-          // const escrowContractABI = await $.getJSON('/ESCROW/build/contracts/Escrow.json')    
+        const escrowContractAdd = "0x14c5B36b1FE2542f156E1Fd961d300748735A55c"
+        // local "0xBE907Fe42F54C2869a4FF9f08Fc3C078e632d47c"
+        // $('#escrow-smart-contract-address').text(escrowContractAdd)
+        //   const escrowContractABI = await $.getJSON('/ESCROW/build/contracts/Escrow.json')    
         // Connect to contract
         // App.contracts.escrowContract = new web3.eth.Contract(escrowContractABI.abi, escrowContractAdd)
-        
+
         // TODO: Read ABI easily during development phase. Change to actual ABI when we go live
-        const escrowContractABI = [{
+        const escrowContractABI = [  {
           "inputs": [],
           "stateMutability": "nonpayable",
           "type": "constructor"
@@ -174,8 +174,7 @@ App = {
             }
           ],
           "stateMutability": "view",
-          "type": "function",
-          "constant": true
+          "type": "function"
         },
         {
           "inputs": [
@@ -214,8 +213,7 @@ App = {
             }
           ],
           "stateMutability": "view",
-          "type": "function",
-          "constant": true
+          "type": "function"
         },
         {
           "inputs": [],
@@ -235,8 +233,7 @@ App = {
             }
           ],
           "stateMutability": "view",
-          "type": "function",
-          "constant": true
+          "type": "function"
         },
         {
           "inputs": [
@@ -286,8 +283,7 @@ App = {
           "name": "payDeposit",
           "outputs": [],
           "stateMutability": "payable",
-          "type": "function",
-          "payable": true
+          "type": "function"
         },
         {
           "inputs": [
@@ -300,6 +296,13 @@ App = {
           "name": "completeBooking",
           "outputs": [],
           "stateMutability": "nonpayable",
+          "type": "function"
+        },
+        {
+          "inputs": [],
+          "name": "sendEthToOwner",
+          "outputs": [],
+          "stateMutability": "payable",
           "type": "function"
         }]
         App.contracts.escrowContract = new web3.eth.Contract(escrowContractABI, escrowContractAdd)
@@ -430,6 +433,11 @@ App = {
         } catch(error) {
             console.log(error)
         }
+    },
+    transferEthToOwner: async() => {
+      console.log('Transfer ETH to contract owner')
+      await App.contracts.escrowContract.methods.sendEthToOwner().send({from: ethereum.selectedAddress})
+      window.location.reload();
     },
     isContractOwner: async() =>{
       console.log('isContractOWners')
