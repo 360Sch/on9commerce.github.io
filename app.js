@@ -83,8 +83,12 @@ App = {
         const escrowContractAdd = "0x8c816E2e373d1aFF591C24f4B5D1782d2294Dd3c"
         // local "0xf99886F46B482AF9a1407eDADEee6cc9646798F6"
         $('#escrow-smart-contract-address').text(escrowContractAdd)
+          // const escrowContractABI = await $.getJSON('/ESCROW/build/contracts/Escrow.json')    
+        // Connect to contract
+        // App.contracts.escrowContract = new web3.eth.Contract(escrowContractABI.abi, escrowContractAdd)
+        
         // TODO: Read ABI easily during development phase. Change to actual ABI when we go live
-        const escrowContractABI = [ {
+        const escrowContractABI = [{
           "inputs": [],
           "stateMutability": "nonpayable",
           "type": "constructor"
@@ -298,11 +302,8 @@ App = {
           "stateMutability": "nonpayable",
           "type": "function"
         }]
-
-        // const escrowContractABI = await $.getJSON('/ESCROW/build/contracts/Escrow.json')    
-        // Connect to contract
-     
-        App.contracts.escrowContract = new web3.eth.Contract(escrowContractABI.abi, escrowContractAdd)
+        App.contracts.escrowContract = new web3.eth.Contract(escrowContractABI, escrowContractAdd)
+      
      
         // TODO: Not sure if this is still required
         // escrowContract.setProvider(window.ethereum)
